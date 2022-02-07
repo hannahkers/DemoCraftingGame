@@ -8,10 +8,14 @@ namespace DemoCraftingGame
     public class CraftingStation : Item
     {
 
+
         public CraftingStation()
         {
             Name = "Crafting Station";
 
         }
+
+        
+
     }
 }

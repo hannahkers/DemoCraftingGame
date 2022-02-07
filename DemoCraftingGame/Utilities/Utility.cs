@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DemoCraftingGame
 {
     class Utility
@@ -20,6 +21,18 @@ namespace DemoCraftingGame
             Console.WriteLine(message);
         }
 
+        public static string ShowAllItemsInList(List<Item> items)
+        {
+            string output = "";
+
+            foreach(Item i in items)
+            {
+                output += $"{i.Name} ({i.Quantity}) ({i.Price}) {Environment.NewLine}";
+            }
+
+
+            return output;
+        }
         public string ConvertLowerCase(string message) => message.ToLower();
        
     }

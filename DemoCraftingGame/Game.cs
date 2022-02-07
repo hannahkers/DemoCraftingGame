@@ -4,64 +4,58 @@ using System.Linq;
 using System.Text;
 using static System.Console;
 using static DemoCraftingGame.Utility;
+using static DemoCraftingGame.Utilities.LoadExternalData;
 
 namespace DemoCraftingGame
 {
     public class Game
     {
+        //new instances
+        static int Choice;
+        Person Player = new Person();
+        NPC Trader = new NPC();
+        Recipe ChamomileTea = new Recipe();
+        Recipe SleepingPotion = new Recipe();
         public void Run()
         {
+            SetUpGame();
+            ShowWelcome();
 
-     
-
-
-            //Items
-
-            Item redDye = new Item();
-            redDye.Price = 3.5f;
-            redDye.Name = "Red Dye";
-            WriteLine($"{redDye.Name} is {redDye.Price.ToString("c")} per vial.");
-
-            Item blueDye = new Item();
-            blueDye.Price = 2.5f;
-            blueDye.Name = "Blue Dye";
-            WriteLine($"{blueDye.Name} is {blueDye.Price.ToString("c")} per vial.");
-
-            Item purpleDye = new Item();
-            purpleDye.Price = 15f;
-            purpleDye.Name = "Purple Dye";
-            WriteLine($"{purpleDye.Name} is {purpleDye.Price.ToString("c")} per vial.");
-
-            Item yellowDye = new Item();
-            yellowDye.Price = 3f;
-            yellowDye.Name = "Yellow Dye";
-            WriteLine($"{yellowDye.Name} is {yellowDye.Price.ToString("c")} per vial.");
-
-            Item greenDye = new Item();
-            greenDye.Price = 12f;
-            greenDye.Name = "Green Dye";
-            WriteLine($"{greenDye.Name} is {greenDye.Price.ToString("c")} per vial.");
-
-            Item orangeDye = new Item();
-            orangeDye.Price = 2.5f;
-            orangeDye.Name = "Orange Dye";
-            WriteLine($"{orangeDye.Name} is {orangeDye.Price.ToString("c")} per vial.");
+            RecipeMenu();
+            
+            //Print("This is what is in your inventory...");
+            //Print(ShowAllItemsInList(Player.Inventory));
+            //Pause();
+            //Print("This is what our Trader has...");
+            //Print(ShowAllItemsInList(Trader.Inventory));
+            //Pause();
+            //Print("How to make Chamomile Tea...");
+            //Print(ShowAllItemsInList(ChamomileTea.Ingredients));
+            //Pause();
+            //Print("How to make Sleeping Potion...");
+            //Print(ShowAllItemsInList(SleepingPotion.Ingredients));
+            //Pause();
+            ////MakePurchase();
+            //Pause();
 
 
-            //Utility.Pause();
-            Pause();
+        }
+        public void MakePurchase()
+        {
+            Print("Would you like to make a purchase today?");
+
         }
 
         private void SetUpGame()
         {
-            Person Player = new Person();
+            
             Player.Name = "Anonymous Player";
 
             Title = "Crafting System Demo!";
 
         }
 
-        private void ShowWelcome()
+        public void ShowWelcome()
         {
             //concatenation
             //WriteLine("Welcome " + Player.Name);
@@ -75,15 +69,63 @@ namespace DemoCraftingGame
             //greet player and get name
             Print("Welcome Player! What would you like to be called?");
             Player.Name = ReadLine();
-            if (Player.Name == string)
+            Print($"Welcome {Player.Name}");
+
+            //pull welcome txt from external file
+            Print(LoadTextFromFile("../../Data/welcome.txt"));
+
+            //pull in instructions from external file
+            Print(LoadTextFromFile("../../Data/instructions.txt"));
+
+            Player.Inventory = LoadLinesFromFile("../../Data/defaultPlayerItems.txt");
+
+            Trader.Inventory = LoadLinesFromFile("../../Data/defaultTraderItems.txt");
+
+            ChamomileTea.Ingredients = LoadLinesFromFile("../../Data/ChamomileTea.txt");
+
+            SleepingPotion.Ingredients = LoadLinesFromFile("../../Data/ChamomileTea.txt");
+
+
+
+
+
+        }
+
+        public void RecipeMenu()
+        {
+
+            Print("What would you like to make?");
+            Print("1) Chamomile Tea 2) Sleeping Potion 3) Nothing");
+            Choice = Convert.ToInt32(ReadLine());
+            if (Choice == 3)
             {
-                Print($"Welcome {Player.Name}");
+                Print("Changed your mind? Goodbye!");
+                Pause();
             }
             else
             {
-                Print("Please enter your name to continue.");
+                switch (Choice)
+                {
+                    case 1:
+                        Print("How to make Chamomile Tea...");
+                        Print(ShowAllItemsInList(ChamomileTea.Ingredients));
+                        Pause();
+                        break;
+                    case 2:
+                        Print("How to make Sleeping Potion");
+                        Print(ShowAllItemsInList(SleepingPotion.Ingredients));
+                        break;
+                    default:
+                        Print("Please make a valid choice.");
+                        Pause();
+                        RecipeMenu();
+                        break;
+
+
+
+                }
             }
-            Pause();
+
         }
     }
 

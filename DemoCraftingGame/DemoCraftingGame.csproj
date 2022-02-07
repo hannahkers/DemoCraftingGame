@@ -50,8 +50,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipe.cs" />
-    <Compile Include="Store.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="NPC.cs" />
+    <Compile Include="Utilities\LoadExternalData.cs" />
+    <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
