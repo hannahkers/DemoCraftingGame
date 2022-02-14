@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static DemoCraftingGame.Utility;
+using static System.Console;
+using static DemoCraftingGame.Utilities.Display;
+using static DemoCraftingGame.Game;
 
 namespace DemoCraftingGame
 {
     public class NPC
     {
+        static int Choice;
         public string Name;
         public List<Item> Inventory = new List<Item>();
 
@@ -62,7 +66,21 @@ namespace DemoCraftingGame
 
         public void Sell()
         {
-          
+            Print("Welcome to my shop");
+            Print(ShowAllItemsInList(Inventory));
+            Pause();
+
+            Print("Would you like to buy anything? 1)Yes 2)No");
+            Choice = Convert.ToInt32(ReadLine());
+            if (Choice == 1)
+            {
+
+            }
+            else
+            {
+                
+                
+            }
            
         }
     }

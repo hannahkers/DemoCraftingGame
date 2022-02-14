@@ -15,7 +15,21 @@ namespace DemoCraftingGame
 
         }
 
-        
+
+
+        public void CraftingStuff()
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
     }
 }

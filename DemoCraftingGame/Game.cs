@@ -5,6 +5,7 @@ using System.Text;
 using static System.Console;
 using static DemoCraftingGame.Utility;
 using static DemoCraftingGame.Utilities.LoadExternalData;
+using static DemoCraftingGame.Utilities.Display;
 
 namespace DemoCraftingGame
 {
@@ -13,15 +14,18 @@ namespace DemoCraftingGame
         //new instances
         static int Choice;
         Person Player = new Person();
-        NPC Trader = new NPC();
+        NPC sleepy = new NPC();
+        NPC grumpy = new NPC();
+        NPC happy = new NPC();
         Recipe ChamomileTea = new Recipe();
         Recipe SleepingPotion = new Recipe();
+        Recipe FlyingPotion = new Recipe();
         public void Run()
         {
             SetUpGame();
             ShowWelcome();
 
-            RecipeMenu();
+            MainMenu();
             
             //Print("This is what is in your inventory...");
             //Print(ShowAllItemsInList(Player.Inventory));
@@ -79,7 +83,9 @@ namespace DemoCraftingGame
 
             Player.Inventory = LoadLinesFromFile("../../Data/defaultPlayerItems.txt");
 
-            Trader.Inventory = LoadLinesFromFile("../../Data/defaultTraderItems.txt");
+            sleepy.Inventory = LoadLinesFromFile("../../Data/sleepyTraderItems.txt");
+            grumpy.Inventory = LoadLinesFromFile("../../Data/grumpyTraderItems.txt");
+            happy.Inventory = LoadLinesFromFile("../../Data/happyTraderItems.txt");
 
             ChamomileTea.Ingredients = LoadLinesFromFile("../../Data/ChamomileTea.txt");
 
@@ -91,6 +97,43 @@ namespace DemoCraftingGame
 
         }
 
+        public void MainMenu()
+        {
+            Print("Main Menu");
+            Print("1)Recipe List 2)Inventory 3)Shop 4)Exit");
+            Choice = Convert.ToInt32(ReadLine());
+            if (Choice == 4)
+            {
+                MainMenu();
+            }
+            else
+            {
+                switch (Choice)
+                {
+                    case 1:
+                        RecipeMenu();
+                        break;
+                    case 2:
+                        Print(ShowAllItemsInList(Player.Inventory));
+                        Pause();
+                        break;
+                    case 3:
+                        //show shop/npc
+                        ShopMenu();
+                        break;
+                    case 4:
+                        Pause();
+                        break;
+                    default:
+                        Print("Please make a valid choice.");
+                        Pause();
+                        MainMenu();
+                        break;
+                }
+            }
+        }
+
+
         public void RecipeMenu()
         {
 
@@ -99,8 +142,7 @@ namespace DemoCraftingGame
             Choice = Convert.ToInt32(ReadLine());
             if (Choice == 3)
             {
-                Print("Changed your mind? Goodbye!");
-                Pause();
+                MainMenu();
             }
             else
             {
@@ -114,6 +156,7 @@ namespace DemoCraftingGame
                     case 2:
                         Print("How to make Sleeping Potion");
                         Print(ShowAllItemsInList(SleepingPotion.Ingredients));
+                        Pause();
                         break;
                     default:
                         Print("Please make a valid choice.");
@@ -121,12 +164,43 @@ namespace DemoCraftingGame
                         RecipeMenu();
                         break;
 
-
-
                 }
             }
 
         }
+
+        public void ShopMenu()
+        {
+            Print("What would you like to buy?");
+            Print("1)Sleepy 2)Happy 3)Grumpy 4)Exit");
+            Choice = Convert.ToInt32(ReadLine());
+            if (Choice == 4)
+            {
+                MainMenu();
+            }
+            else
+            {
+                switch (Choice)
+                {
+                    case 1:
+                        sleepy.Sell();
+                        break;
+                    case 2:
+                        happy.Sell();
+                        break;
+                    case 3:
+                        grumpy.Sell();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+        }
+       
+
+
+
     }
 
     

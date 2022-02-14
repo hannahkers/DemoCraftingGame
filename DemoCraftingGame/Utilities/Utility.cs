@@ -16,10 +16,10 @@ namespace DemoCraftingGame
             Console.ReadKey();
         }
 
-        public static void Print(string message)
-        {
-            Console.WriteLine(message);
-        }
+        //public static void Print(string message)
+        //{
+        //    Console.WriteLine(message);
+        //}
 
         public static string ShowAllItemsInList(List<Item> items)
         {
